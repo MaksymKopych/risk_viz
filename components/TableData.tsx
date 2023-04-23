@@ -23,13 +23,12 @@ type Props = {
 }
 
 const TableData = ({ data, decade, faktors, setSelectedList }: Props) => {
-    const DEFAULT_ORDER = 'asc';
     const DEFAULT_ORDER_BY = 'Asset Name';
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [columns, setColumns] = useState<string[]>([]);
     const columnsIntitial: string[] = ["Asset Name", "Business Category", "Risk Rating"];
-    const [order, setOrder] = useState<string>(DEFAULT_ORDER);
+    const [order, setOrder] = useState<"asc" | "desc" | undefined>("asc");
     const [orderBy, setOrderBy] = useState(DEFAULT_ORDER_BY);
     const [sortedTab, setSortedTab] = useState(data);
     useEffect(() => {
