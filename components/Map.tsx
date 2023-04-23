@@ -29,20 +29,20 @@ const Map = ({ data }: Props) => {
         id: "google-map-script",
         googleMapsApiKey: `${process.env.NEXT_PUBLIC_MAP_KEY}`,
     });
-    const onLoad = useCallback(function callback(map) {
+    const onLoad = useCallback(function callback(map: any) {
         setMap(map);
     }, []);
-    const onUnmount = useCallback(function callback(map) {
+    const onUnmount = useCallback(function callback(map: any) {
         setMap(null);
     }, []);
-    const onMarkerClick = (marker) => {
+    const onMarkerClick = (marker: any) => {
         setActiveMarker(marker);
     };
     const onInfoWindowClose = () => {
         setActiveMarker(null);
     };
 
-    const groupByCoords = (arr) => {
+    const groupByCoords = (arr: any) => {
         const result = {};
         arr.forEach((item) => {
             const coords = [item.lat, item.lng];
@@ -66,7 +66,7 @@ const Map = ({ data }: Props) => {
         });
         return arr;
     };
-    const riskCollor = (el) => {
+    const riskCollor = (el: any) => {
         if (Number(el.risk_rating) <= 0.39) {
             return "rgb(79, 163, 93)";
         }
@@ -140,7 +140,7 @@ const Map = ({ data }: Props) => {
                                                                     return (
                                                                         <li key={r.riskrisk}>
                                                                             <p>
-                                                                                {r.risk} : {r.probability}
+                                                                                {r.risk} : {Number(r.probability).toFixed(2)}
                                                                             </p>
                                                                         </li>
                                                                     );

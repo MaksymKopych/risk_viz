@@ -34,7 +34,7 @@ const BarChart = ({ data }: Props) => {
         ],
     });
     const [chartOptions, setChartOptions] = useState({});
-    const riskCollor = (el) => {
+    const riskCollor = (el: any) => {
         if (Number(el) <= 0.39) {
             return "rgb(79, 163, 93)";
         }
