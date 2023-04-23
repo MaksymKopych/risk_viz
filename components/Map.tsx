@@ -23,7 +23,7 @@ type Props = {
 
 const Map = ({ data }: Props) => {
     const [map, setMap] = useState(null);
-    const [activeMarker, setActiveMarker] = useState(null);
+    const [activeMarker, setActiveMarker] = useState<any>(null);
     const [markers, setMarkers] = useState<Post[]>([]);
     const { isLoaded } = useJsApiLoader({
         id: "google-map-script",
@@ -43,9 +43,9 @@ const Map = ({ data }: Props) => {
     };
 
     const groupByCoords = (arr: any) => {
-        const result = {};
-        arr.forEach((item) => {
-            const coords = [item.lat, item.lng];
+        const result: any = {};
+        arr.forEach((item: any) => {
+            const coords: any = [item.lat, item.lng];
             if (result[coords]) {
                 result[coords].push(item);
             } else {
@@ -56,7 +56,7 @@ const Map = ({ data }: Props) => {
     };
 
     const groupedArr = () => {
-        const arr = [];
+        const arr: any = [];
         Object.entries(groupByCoords(data)).forEach((key) => {
             arr.push({
                 lat: key[0].split(",")[0],
@@ -104,7 +104,7 @@ const Map = ({ data }: Props) => {
                     }}
                 >
 
-                    {markers.map((marker, index) => (
+                    {markers.map((marker: any, index: number) => (
                         <Marker
                             key={index}
                             position={{ lat: Number(marker.lat), lng: Number(marker.lng) }}
@@ -116,7 +116,7 @@ const Map = ({ data }: Props) => {
                                 <InfoWindow onCloseClick={onInfoWindowClose}>
                                     <div className="popup">
                                         <ul className="list">
-                                            {marker?.data?.map((el, index) => {
+                                            {marker?.data?.map((el: any, index: number) => {
                                                 const rf = Object.entries(
                                                     el.risk_factors
                                                 ).map(([risk, probability]) => ({
@@ -138,7 +138,7 @@ const Map = ({ data }: Props) => {
                                                             <ul>
                                                                 {rf.map((r) => {
                                                                     return (
-                                                                        <li key={r.riskrisk}>
+                                                                        <li key={r.risk}>
                                                                             <p>
                                                                                 {r.risk} : {Number(r.probability).toFixed(2)}
                                                                             </p>

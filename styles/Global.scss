@@ -51,14 +51,29 @@ body {}
     justify-content: center;
     align-items: center;
 
+    @media (max-width:996px) {
+        flex-direction: column;
+        height: auto;
+    }
+
     .content {
         height: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
+        width: 50%;
+
+        @media (max-width:996px) {
+            width: 100%;
+        }
 
         canvas {
-            height: 100%;
+
+            @media (max-width:996px) {
+                width: 100% !important;
+                height: 100% !important;
+            }
+
         }
     }
 }

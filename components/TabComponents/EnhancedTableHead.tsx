@@ -2,17 +2,14 @@ import { Box, Checkbox, TableCell, TableHead, TableRow, TableSortLabel } from "@
 
 
 interface EnhancedTableProps {
-    numSelected: number;
     onRequestSort: (event: React.MouseEvent<unknown>, newOrderBy: keyof Data) => void;
-
     order: string;
     orderBy: string;
-    rowCount: number;
     headCells: string[]
 }
 
 const EnhancedTableHead = (props: EnhancedTableProps) => {
-    const { order, orderBy, rowCount, headCells, onRequestSort } =
+    const { order, orderBy, headCells, onRequestSort } =
         props;
     const createSortHandler =
         (newOrderBy: keyof Data) => (event: React.MouseEvent<unknown>) => {

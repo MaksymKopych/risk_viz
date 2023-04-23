@@ -19,7 +19,7 @@ type Props = {
     data: Post[],
     decade: string,
     faktors: string[]
-    setSelectedList: () => void
+    setSelectedList: (arr: any) => void
 }
 
 const TableData = ({ data, decade, faktors, setSelectedList }: Props) => {
@@ -36,7 +36,7 @@ const TableData = ({ data, decade, faktors, setSelectedList }: Props) => {
         setColumns([...columnsIntitial, ...faktors]);
     }, [faktors]);
 
-    const slugify = (str) => {
+    const slugify = (str: string) => {
         return str
             .toLowerCase()
             .trim()
@@ -66,14 +66,14 @@ const TableData = ({ data, decade, faktors, setSelectedList }: Props) => {
                 if (toggledOrder === "asc") {
 
                     const sortedData = _.sortBy(data, [
-                        (obj) =>
+                        (obj: any) =>
                             nullsFirst(obj['risk_factors'][orderBy]),
                     ]);
 
                     setSortedTab(sortedData)
                 } else {
                     const sortedData = _.sortBy(data, [
-                        (obj) =>
+                        (obj: any) =>
                             nullsFirst(obj['risk_factors'][orderBy]),
                     ]).reverse();
 
@@ -112,7 +112,6 @@ const TableData = ({ data, decade, faktors, setSelectedList }: Props) => {
                                     order={order}
                                     orderBy={orderBy}
                                     onRequestSort={handleRequestSort}
-                                    rowCount={10}
                                     headCells={columns}
                                 />
                                 <TableBody>
