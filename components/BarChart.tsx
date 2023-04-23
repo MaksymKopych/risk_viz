@@ -24,6 +24,39 @@ type Props = {
     faktors: string[]
 }
 const BarChart = ({ data, faktors }: Props) => {
+    const colors = [
+        {
+            color: "rgb(79, 163, 93)",
+            raiting: "0 - 0.39"
+        },
+        {
+            color: "rgb(107, 211, 80)",
+            raiting: "0.4 - 0.49"
+        },
+        {
+            color: "rgb(149, 236, 131)",
+            raiting: "0.5 - 0.59"
+        },
+        {
+            color: "rgb(240, 179, 84)",
+            raiting: "0.6 - 0.69"
+        },
+        {
+            color: "rgb(226, 89, 45)",
+            raiting: "0.7 - 0.79"
+        },
+        {
+            color: "rgb(173, 65, 50)",
+            raiting: "0.8 - 1"
+        }
+
+
+
+
+
+
+
+    ];
     const [chartData, setChartData] = useState<any>({
         labels: [],
         datasets: [
@@ -88,6 +121,21 @@ const BarChart = ({ data, faktors }: Props) => {
     return (
         <div className='content' >
             <Bar data={chartData} options={chartOptions} />
+            <div className='bar-info'>
+                <p>Low risk</p>
+                <div className='color-bar'>
+                    {
+                        colors.map((c, index) => {
+                            return <div key={(index + 1) * 231.9} className='color-box' style={{
+                                background: c.color
+                            }}>
+                                {c.raiting}
+                            </div>
+                        })
+                    }
+                </div>
+                <p>High risk</p>
+            </div>
         </div>
 
     );
