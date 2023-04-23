@@ -110,7 +110,6 @@ const Map = ({ data }: Props) => {
                             position={{ lat: Number(marker.lat), lng: Number(marker.lng) }}
                             onClick={(e) => {
                                 setActiveMarker(index);
-                                console.log(marker);
                             }}
                         >
                             {activeMarker === index && (

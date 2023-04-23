@@ -9,6 +9,7 @@ import {
     Tooltip,
     Legend,
 } from 'chart.js';
+import { Post } from '../Interface';
 
 ChartJS.register(
     CategoryScale,
@@ -18,8 +19,10 @@ ChartJS.register(
     Tooltip,
     Legend
 );
-
-const BarChart = ({ data }) => {
+type Props = {
+    data: Post,
+}
+const BarChart = ({ data }: Props) => {
     const [chartData, setChartData] = useState({
         labels: [],
         datasets: [
@@ -69,7 +72,6 @@ const BarChart = ({ data }) => {
                     },
                 ],
             });
-            console.log(data)
         }
     }, [data]);
 

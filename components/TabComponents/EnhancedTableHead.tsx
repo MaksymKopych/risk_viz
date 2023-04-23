@@ -37,11 +37,6 @@ const EnhancedTableHead = (props: EnhancedTableProps) => {
                             onClick={createSortHandler(headCell)}
                         >
                             {headCell}
-                            {orderBy === headCell ? (
-                                <Box component="span" >
-                                    {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                                </Box>
-                            ) : null}
                         </TableSortLabel>
                     </TableCell>
                 ))}

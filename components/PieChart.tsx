@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
+import { Post } from '../Interface';
 ChartJS.register(ArcElement, Tooltip, Legend);
-
-const PieChart = ({ data }) => { // передаем пропсы в качестве аргумента
+type Props = {
+    data: Post,
+}
+const PieChart = ({ data }: Props) => { // передаем пропсы в качестве аргумента
     const [chartData, setChartData] = useState({
         labels: [],
         datasets: [
@@ -41,7 +44,6 @@ const PieChart = ({ data }) => { // передаем пропсы в качес�
                     },
                 ],
             });
-            console.log(data)
         }
     }, [data]);
 

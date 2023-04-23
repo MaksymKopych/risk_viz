@@ -19,6 +19,7 @@ type Props = {
     data: Post[],
     decade: string,
     faktors: string[]
+    setSelectedList: () => void
 }
 
 const TableData = ({ data, decade, faktors, setSelectedList }: Props) => {
@@ -46,12 +47,12 @@ const TableData = ({ data, decade, faktors, setSelectedList }: Props) => {
     }
 
     const handleRequestSort = useCallback(
-        (event, newOrderBy) => {
+        (newOrderBy: any) => {
             const isAsc = orderBy === newOrderBy && order === 'asc';
             const toggledOrder = isAsc ? 'desc' : 'asc';
             setOrder(toggledOrder);
             setOrderBy(newOrderBy);
-            const nullsFirst = (value) => value === undefined ? -Infinity : value;
+            const nullsFirst = (value: any) => value === undefined ? -Infinity : value;
 
             if (columnsIntitial.includes(newOrderBy)) {
                 if (toggledOrder === "asc") {
@@ -117,7 +118,7 @@ const TableData = ({ data, decade, faktors, setSelectedList }: Props) => {
                                 <TableBody>
                                     {sortedTab
                                         .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                        .map((row) => {
+                                        .map((row: any) => {
                                             return (
                                                 <TableRow
                                                     hover
