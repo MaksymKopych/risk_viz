@@ -7,7 +7,7 @@ type Props = {
     data: Post,
 }
 const PieChart = ({ data }: Props) => { // передаем пропсы в качестве аргумента
-    const [chartData, setChartData] = useState({
+    const [chartData, setChartData] = useState<any>({
         labels: [],
         datasets: [
             {

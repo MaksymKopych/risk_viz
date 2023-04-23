@@ -23,7 +23,7 @@ type Props = {
     data: Post,
 }
 const BarChart = ({ data }: Props) => {
-    const [chartData, setChartData] = useState({
+    const [chartData, setChartData] = useState<any>({
         labels: [],
         datasets: [
             {
