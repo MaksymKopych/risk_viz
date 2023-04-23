@@ -67,8 +67,8 @@ export default function Home() {
         />
       </div>
       <div className="chart box">
-        <BarChart data={selectedList} />
-        <PieChart data={selectedList} />
+        <BarChart data={selectedList} faktors={faktors} />
+        <PieChart data={selectedList} faktors={faktors} />
       </div>
     </div>
   );

@@ -5,8 +5,9 @@ import { Post } from '../Interface';
 ChartJS.register(ArcElement, Tooltip, Legend);
 type Props = {
     data: Post,
+    faktors: string[]
 }
-const PieChart = ({ data }: Props) => { // передаем пропсы в качестве аргумента
+const PieChart = ({ data, faktors }: Props) => {
     const [chartData, setChartData] = useState<any>({
         labels: [],
         datasets: [
@@ -28,8 +29,17 @@ const PieChart = ({ data }: Props) => { // передаем пропсы в ка
     }
     useEffect(() => {
         if (data) {
-            const labels = data.risk_factors ? Object.keys(data.risk_factors) : [];
-            const values = data.risk_factors ? Object.values(data.risk_factors) : [];
+            const getValues = faktors.map((f: any) => {
+                if (data.risk_factors[f]) {
+                    return data.risk_factors[f]
+                }
+                else {
+                    return 0
+                }
+
+            })
+            const labels = data.risk_factors ? faktors : [];
+            const values = data.risk_factors ? getValues : [];
             const backgroundColors = labels.map((_, index) => {
                 return getRandomColor()
             });

@@ -21,8 +21,9 @@ ChartJS.register(
 );
 type Props = {
     data: Post,
+    faktors: string[]
 }
-const BarChart = ({ data }: Props) => {
+const BarChart = ({ data, faktors }: Props) => {
     const [chartData, setChartData] = useState<any>({
         labels: [],
         datasets: [
@@ -56,8 +57,17 @@ const BarChart = ({ data }: Props) => {
     };
     useEffect(() => {
         if (data) {
-            const labels = data.risk_factors ? [...Object.keys(data.risk_factors), "Risk Rating"] : [];
-            const values = data.risk_factors ? [...Object.values(data.risk_factors), data.risk_rating] : [];
+            const getValues = faktors.map((f: any) => {
+                if (data.risk_factors[f]) {
+                    return data.risk_factors[f]
+                }
+                else {
+                    return 0
+                }
+
+            })
+            const labels = data.risk_factors ? [...faktors, "Risk Rating"] : [];
+            const values = data.risk_factors ? [...getValues, data.risk_rating] : [];
             const backgroundColors = values.map((val, index) => {
                 return riskCollor(val)
             });
