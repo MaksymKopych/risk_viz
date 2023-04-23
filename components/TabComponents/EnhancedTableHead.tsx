@@ -3,7 +3,7 @@ import { Box, Checkbox, TableCell, TableHead, TableRow, TableSortLabel } from "@
 
 interface EnhancedTableProps {
     onRequestSort: (event: any, newOrderBy: any) => void;
-    order: string;
+    order: "asc" | "desc" | undefined;
     orderBy: string;
     headCells: string[]
 }
@@ -15,7 +15,7 @@ const EnhancedTableHead = (props: EnhancedTableProps) => {
         (newOrderBy: any) => (event: any) => {
             onRequestSort(event, newOrderBy);
         };
-
+    const direction = order ? order : 'asc'
     return (
         <TableHead>
             <TableRow>
@@ -30,7 +30,7 @@ const EnhancedTableHead = (props: EnhancedTableProps) => {
                     >
                         <TableSortLabel
                             active={orderBy === headCell}
-                            direction={orderBy === headCell ? order : 'asc'}
+                            direction={direction}
                             onClick={createSortHandler(headCell)}
                         >
                             {headCell}
