@@ -29,7 +29,7 @@ const TableData = ({ data, decade, faktors, setSelectedList }: Props) => {
     const [columns, setColumns] = useState<string[]>([]);
     const columnsIntitial: string[] = ["Asset Name", "Business Category", "Risk Rating"];
     const [order, setOrder] = useState<"asc" | "desc" | undefined>("asc");
-    const [orderBy, setOrderBy] = useState(DEFAULT_ORDER_BY);
+    const [orderBy, setOrderBy] = useState<any>(undefined);
     const [sortedTab, setSortedTab] = useState(data);
     useEffect(() => {
         setColumns([...columnsIntitial, ...faktors]);
@@ -44,44 +44,10 @@ const TableData = ({ data, decade, faktors, setSelectedList }: Props) => {
             .replace(/^-+|-+$/g, "");
 
     }
-
-    const handleRequestSort = useCallback(
-        (newOrderBy: any) => {
-            const isAsc = orderBy === newOrderBy && order === 'asc';
-            const toggledOrder = isAsc ? 'desc' : 'asc';
-            setOrder(toggledOrder);
-            setOrderBy(newOrderBy);
-            const nullsFirst = (value: any) => value === undefined ? -Infinity : value;
-
-            if (columnsIntitial.includes(newOrderBy)) {
-                if (toggledOrder === "asc") {
-                    const sortedData = _.sortBy(data, slugify(orderBy));
-                    setSortedTab(sortedData)
-                } else {
-                    const sortedData = _.sortBy(data, slugify(orderBy)).reverse();
-                    setSortedTab(sortedData)
-                }
-            } else {
-                if (toggledOrder === "asc") {
-
-                    const sortedData = _.sortBy(data, [
-                        (obj: any) =>
-                            nullsFirst(obj['risk_factors'][orderBy]),
-                    ]);
-
-                    setSortedTab(sortedData)
-                } else {
-                    const sortedData = _.sortBy(data, [
-                        (obj: any) =>
-                            nullsFirst(obj['risk_factors'][orderBy]),
-                    ]).reverse();
-
-                    setSortedTab(sortedData)
-                }
-            }
-        },
-        [order, orderBy, page, rowsPerPage],
-    );
+    const handleChange = (newOrderBy: string) => {
+        setOrderBy(newOrderBy);
+        setOrder((prev: any) => prev === "asc" ? "desc" : "asc")
+    }
     const handleChangePage = useCallback(
         (event: unknown, newPage: number) => {
             setPage(newPage);
@@ -100,6 +66,38 @@ const TableData = ({ data, decade, faktors, setSelectedList }: Props) => {
     useEffect(() => {
         setSortedTab(data)
     }, [data])
+
+
+    useEffect(() => {
+        const nullsFirst = (value: any) => value === undefined ? -Infinity : value;
+
+        if (columnsIntitial.includes(orderBy)) {
+            if (order === "asc") {
+                const sortedData = _.sortBy(data, slugify(orderBy));
+                setSortedTab(sortedData)
+            } else {
+                const sortedData = _.sortBy(data, slugify(orderBy)).reverse();
+                setSortedTab(sortedData)
+            }
+        } else {
+            if (order === "asc") {
+
+                const sortedData = _.sortBy(data, [
+                    (obj: any) =>
+                        nullsFirst(obj['risk_factors'][orderBy]),
+                ]);
+
+                setSortedTab(sortedData)
+            } else {
+                const sortedData = _.sortBy(data, [
+                    (obj: any) =>
+                        nullsFirst(obj['risk_factors'][orderBy]),
+                ]).reverse();
+
+                setSortedTab(sortedData)
+            }
+        }
+    }, [order, orderBy])
     return (
         <div className="content">
             <Paper sx={{ width: "100%", overflow: "hidden" }}>
@@ -110,8 +108,8 @@ const TableData = ({ data, decade, faktors, setSelectedList }: Props) => {
                                 <EnhancedTableHead
                                     order={order}
                                     orderBy={orderBy}
-                                    onRequestSort={handleRequestSort}
                                     headCells={columns}
+                                    handleChange={handleChange}
                                 />
                                 <TableBody>
                                     {sortedTab

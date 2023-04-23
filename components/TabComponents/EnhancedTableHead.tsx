@@ -2,20 +2,16 @@ import { Box, Checkbox, TableCell, TableHead, TableRow, TableSortLabel } from "@
 
 
 interface EnhancedTableProps {
-    onRequestSort: (event: any, newOrderBy: any) => void;
     order: "asc" | "desc" | undefined;
     orderBy: string;
     headCells: string[]
+    handleChange: (newOrderBy: any) => void
 }
 
 const EnhancedTableHead = (props: EnhancedTableProps) => {
-    const { order, orderBy, headCells, onRequestSort } =
+    const { order, orderBy, headCells, handleChange } =
         props;
-    const createSortHandler =
-        (newOrderBy: any) => (event: any) => {
-            onRequestSort(event, newOrderBy);
-        };
-    const direction = order ? order : 'asc'
+
     return (
         <TableHead>
             <TableRow>
@@ -30,8 +26,8 @@ const EnhancedTableHead = (props: EnhancedTableProps) => {
                     >
                         <TableSortLabel
                             active={orderBy === headCell}
-                            direction={direction}
-                            onClick={createSortHandler(headCell)}
+                            direction={order}
+                            onClick={() => handleChange(headCell)}
                         >
                             {headCell}
                         </TableSortLabel>
